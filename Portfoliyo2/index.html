@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Portfolio | Nikhil Arya Prajapati</title>
+  <meta name="description" id="metaDesc" content="Personal portfolio website built with modern web technologies." />
+  <link rel="stylesheet" href="assets/fonts/fonts.css" />
+  <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css?v=2" />
+  <noscript><style>#preloader{display:none!important}[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#10035;</text></svg>" />
+</head>
+<body>
+  <div id="preloader" class="preloader">
+    <div class="preloader__inner">
+      <div class="preloader__ring"></div>
+      <span class="preloader__text" id="preloaderText">LOADING</span>
+    </div>
+  </div>
+  <canvas id="particles" class="particles-canvas"></canvas>
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb--1"></span>
+    <span class="orb orb--2"></span>
+    <span class="orb orb--3"></span>
+  </div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <header class="navbar glass" id="navbar">
+    <nav class="nav container">
+      <a href="#home" class="nav__logo" data-nav>
+        <span class="nav__logo-mark" id="navLogoMark">NA</span>
+        <span class="nav__logo-text" id="navLogoText">Nikhil Arya Prajapati</span>
+      </a>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="#home" class="nav__link" data-nav>Home</a></li>
+        <li><a href="#about" class="nav__link" data-nav>About</a></li>
+        <li><a href="#skills" class="nav__link" data-nav>Skills</a></li>
+        <li><a href="#projects" class="nav__link" data-nav>Projects</a></li>
+        <li><a href="#services" class="nav__link" data-nav>Services</a></li>
+        <li><a href="#contact" class="nav__link" data-nav>Contact</a></li>
+      </ul>
+      <div class="nav__actions">
+        <a href="#" id="navResume" class="btn btn--neon btn--sm" target="_blank" rel="noopener">
+          <i class="fa-solid fa-file-arrow-down"></i> Resume
+        </a>
+        <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero__glow"></div>
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="hero__hello" data-reveal><span class="wave">&#128075;</span> Hello, I'm</p>
+          <h1 class="hero__name" data-reveal><span class="neon" id="heroName">Nikhil Arya Prajapati</span></h1>
+          <h2 class="hero__role" data-reveal><span class="hero__role-static">I am a</span><span class="hero__type" id="heroType"></span><span class="caret" id="caret"></span></h2>
+          <p class="hero__tagline" id="heroTagline" data-reveal>Aspiring Full Stack Java Developer building scalable backend systems.</p>
+          <div class="hero__cta" data-reveal>
+            <a href="#projects" class="btn btn--neon" data-nav><span>View Projects</span><i class="fa-solid fa-arrow-right"></i></a>
+            <a href="#contact" class="btn btn--outline" data-nav>Contact Me</a>
+          </div>
+          <div class="hero__socials" id="heroSocials" data-reveal></div>
+          </div>
+        <div class="hero__avatar-wrap" data-reveal>
+          <div class="hero__avatar glass" id="heroAvatar">
+            <span class="hero__avatar-initials" id="heroInitials">NA</span>
+            <img id="heroPhoto" alt="profile" class="hero__photo" hidden />
+          </div>
+          <div class="hero__orbit" aria-hidden="true">
+            <span class="hero__float-icon hero__float-icon--1"><i class="fa-brands fa-react"></i></span>
+          <span class="hero__float-icon hero__float-icon--2"><i class="fa-brands fa-java"></i></span>
+            <span class="hero__float-icon hero__float-icon--3"><i class="fa-solid fa-code"></i></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="about">
+      <div class="container">
+        <h2 class="section__title" data-reveal><span class="neon-slash">/</span> About Me</h2>
+        <p class="section__subtitle" data-reveal>Technologies and tools I work with.</p>
+        <div class="about__grid">
+          <div class="about__text glass" data-reveal>
+            <div id="aboutParagraphs" class="about__paragraphs"></div>
+            <div class="about__quick" id="aboutQuick"></div>
+          </div>
+          <div class="about__stats glass" data-reveal><div id="aboutStats"></div></div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="skills">
+      <div class="container">
+        <h2 class="section__title" data-reveal><span class="neon-slash">/</span> Skills</h2>
+        <p class="section__subtitle" data-reveal>Java, Python, C++ and backend technologies.</p>
+        <div id="skillsContainer"></div>
+      </div>
+    </section>
+    <section class="section" id="projects">
+      <div class="container">
+        <h2 class="section__title" data-reveal><span class="neon-slash">/</span> Projects</h2>
+        <p class="section__subtitle" data-reveal>Notable projects I have built.</p>
+        <div class="project-filters" data-reveal>
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="Java">Java</button>
+          <button class="filter-btn" data-filter="JavaScript">Web</button>
+          <button class="filter-btn" data-filter="Game Development">Games</button>
+        </div>
+        <div class="projects" id="projectsContainer"></div>
+      </div>
+    </section>
+    <section class="section" id="achievements">
+      <div class="container">
+        <h2 class="section__title" data-reveal><span class="neon-slash">/</span> Achievements</h2>
+        <p class="section__subtitle" data-reveal>My certificates and achievements.</p>
+        <div class="achievements-grid" id="achievementsContainer"></div>
+      </div>
+    </section>
+    <section class="section" id="services">
+      <div class="container">
+        <h2 class="section__title" data-reveal><span class="neon-slash">/</span> Services</h2>
+        <p class="section__subtitle" data-reveal>What I can do for you.</p>
+        <div id="servicesContainer"></div>
+      </div>
+    </section>
+    <section class="section" id="contact">
+      <div class="container">
+        <h2 class="section__title" data-reveal><span class="neon-slash">/</span> Get In Touch</h2>
+        <p class="section__subtitle" data-reveal>Want to work with me? Send me a message.</p>
+        <div class="contact">
+          <div class="contact__info glass" data-reveal>
+            <div id="contactItems"></div>
+            <h3 class="contact__socials-title">Follow Me</h3>
+            <div class="contact__socials" id="contactSocials"></div>
+          </div>
+          <form class="contact__form glass" id="contactForm" data-reveal novalidate>
+            <div class="form__row">
+              <div class="form__group"><input type="text" id="name" name="name" placeholder=" " required /><label for="name">Your Name</label></div>
+              <div class="form__group"><input type="email" id="email" name="email" placeholder=" " required /><label for="email">Your Email</label></div>
+            </div>
+            <div class="form__group"><input type="text" id="subject" name="subject" placeholder=" " required /><label for="subject">Subject</label></div>
+            <div class="form__group"><textarea id="message" name="message" rows="5" placeholder=" " required></textarea><label for="message">Message</label></div>
+            <button type="submit" class="btn btn--neon btn--full"><span class="btn__label">Send Message</span><i class="fa-solid fa-paper-plane"></i></button>
+            <p class="form__status" id="formStatus"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">&#169; <span id="year"></span> <span id="footerName">Nikhil Arya Prajapati</span>. All rights reserved.</p>
+      <p class="footer__made">Built with <span class="footer__heart">&#10084;</span> using HTML, CSS &amp; JavaScript</p>
+    </div>
+  </footer>
+  <button class="back-top" id="backTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <script src="js/data.js?v=2"></script>
+  <script src="js/script.js?v=2"></script>
+</body>
+</html>

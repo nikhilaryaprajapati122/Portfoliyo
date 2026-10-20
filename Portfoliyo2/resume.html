@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume | Nikhil Arya Prajapati</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#10035;</text></svg>" />
+  <style>
+    :root {
+      --bg: #05060f;
+      --cyan: #00e5ff;
+      --purple: #a855f7;
+      --pink: #ff2bd6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      min-height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, sans-serif;
+    }
+    .bg-orbs {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.35;
+      animation: float 16s ease-in-out infinite;
+    }
+    .orb--1 { top: 10%; left: 15%; width: 600px; height: 600px; background: var(--cyan); animation-delay: 0s; }
+    .orb--2 { bottom: 10%; right: 15%; width: 700px; height: 700px; background: var(--purple); animation-delay: -6s; }
+    .orb--3 { top: 25%; left: 65%; width: 500px; height: 500px; background: var(--pink); animation-delay: -12s; }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(50px, -60px) scale(1.2); }
+      66% { transform: translate(-40px, 50px) scale(0.9); }
+    }
+    .viewport {
+      position: relative;
+      width: 95vw;
+      height: 95vh;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.8);
+      cursor: grab;
+      background: rgba(10, 11, 26, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .viewport:active { cursor: grabbing; }
+    .viewport img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.15s ease;
+      transform-origin: center center;
+    }
+    .zoom-controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+      background: rgba(10, 11, 26, 0.6);
+      padding: 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+    .zoom-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .zoom-btn:hover {
+      background: var(--cyan);
+      color: var(--bg);
+      border-color: var(--cyan);
+    }
+    .zoom-btn:active {
+      transform: scale(0.95);
+    }
+    .zoom-value {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      background: rgba(10, 11, 26, 0.6);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--cyan);
+      font-size: 0.85rem;
+      font-weight: 700;
+      backdrop-filter: blur(10px);
+      pointer-events: none;
+    }
+    .hint {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+      pointer-events: none;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 640px) {
+      .viewport { width: 92vw; height: 90vh; border-radius: 16px; }
+      .viewport img { width: 92vw; border-radius: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orbs">
+    <span class="orb orb--1"></span>
+    <span class="orb orb--2"></span>
+    <span class="orb orb--3"></span>
+  </div>
+  <div class="viewport" id="viewport">
+    <img src="assets/resume.png" alt="Resume" id="resumeImg" />
+  </div>
+  <div class="zoom-controls">
+    <button class="zoom-btn" id="zoomOut" title="Zoom Out">-</button>
+    <button class="zoom-btn" id="zoomReset" title="Reset">&#8635;</button>
+    <button class="zoom-btn" id="zoomIn" title="Zoom In">+</button>
+  </div>
+  <div class="zoom-value" id="zoomValue">100%</div>
+  <div class="hint">Drag to slide — Scroll to zoom</div>
+  <script>
+    const viewport = document.getElementById('viewport');
+    const img = document.getElementById('resumeImg');
+    const zoomValue = document.getElementById('zoomValue');
+    const zoomInBtn = document.getElementById('zoomIn');
+    const zoomOutBtn = document.getElementById('zoomOut');
+    const zoomResetBtn = document.getElementById('zoomReset');
+    let scale = 1;
+    let posX = 0;
+    let posY = 0;
+    let isDown = false;
+    let startX, startY;
+    function updateTransform() {
+      img.style.transform = 'translate(' + posX + 'px,' + posY + 'px) scale(' + scale + ')';
+      const pct = Math.round(scale * 100);
+      zoomValue.textContent = pct + '%';
+    }
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? 0.9 : 1.1;
+      scale = Math.min(Math.max(scale * delta, 1), 5);
+      updateTransform();
+    }, { passive: false });
+    zoomInBtn.addEventListener('click', () => {
+      scale = Math.min(scale + 0.25, 5);
+      updateTransform();
+    });
+    zoomOutBtn.addEventListener('click', () => {
+      scale = Math.max(scale - 0.25, 1);
+      updateTransform();
+    });
+    zoomResetBtn.addEventListener('click', () => {
+      scale = 1;
+      posX = 0;
+      posY = 0;
+      updateTransform();
+    });
+    viewport.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.clientX - posX;
+      startY = e.clientY - posY;
+      viewport.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      posX = e.clientX - startX;
+      posY = e.clientY - startY;
+      if (scale === 1) { posX = 0; posY = 0; }
+      updateTransform();
+    });
+    window.addEventListener('mouseup', () => {
+      isDown = false;
+      viewport.style.cursor = 'grab';
+    });
+    viewport.addEventListener('touchstart', (e) => {
+      isDown = true;
+      const t = e.touches[0];
+      startX = t.clientX - posX;
+      startY = t.clientY - posY;
+    }, { passive: false });
+    viewport.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const t = e.touches[0];
+      posX = t.clientX - startX;
+      posY = t.clientY - startY;
+      if (scale === 1) { posX = 0; posY = 0; }
+      updateTransform();
+    }, { passive: false });
+    window.addEventListener('touchend', () => { isDown = false; });
+    window.addEventListener('load', () => {
+      scale = 1; posX = 0; posY = 0;
+      updateTransform();
+    });
+  </script>
+</body>
+</html>
